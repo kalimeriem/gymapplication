@@ -1,9 +1,11 @@
-import { Image, StyleSheet, Platform } from 'react-native';
+import { View, Button, Image, StyleSheet, Platform } from 'react-native';
 
 import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
+
+import { router } from "expo-router";
 
 export default function HomeScreen() {
   return (
@@ -50,6 +52,9 @@ export default function HomeScreen() {
           <ThemedText type="defaultSemiBold">app-example</ThemedText>.
         </ThemedText>
       </ThemedView>
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <Button title="Go to Login" onPress={() => router.push("../auth/login")}/>
+      </View>
     </ParallaxScrollView>
   );
 }
