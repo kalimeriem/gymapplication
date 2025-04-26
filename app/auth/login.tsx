@@ -7,11 +7,29 @@ import FacebookIcon from "../../assets/icons/facebook.svg"
 import GoogleIcon from "../../assets/icons/google.svg"
 import EyeOnIcon from "../../assets/icons/eye-on.svg"
 import EyeOffIcon from "../../assets/icons/eye-off.svg"
+import RedXIcon from "../../assets/icons/red-x-icon.svg"
 import { StatusBar } from "expo-status-bar";
 
 export default function LoginScreen () {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [fontsLoaded, setFontsLoaded] = useState(false);
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const handleLogin = () => {
+    if (!email.trim() || !password.trim()) {
+      setErrorMessage("Please complete all the fields");
+      return;
+    }
+
+    setErrorMessage("");
+
+    // Replace with actual login logic (backend)
+    alert("Login submitted!");
+
+  };
 
   useEffect(() => {
     async function loadFonts() {
@@ -41,13 +59,26 @@ export default function LoginScreen () {
 
           <View style={loginSignup.card}>
             <Text style={loginSignup.label}>Email</Text>
-            <View style={loginSignup.inputContainer}>
-              <TextInput style={loginSignup.input} placeholder="example@example.com" placeholderTextColor="#F739AB" />
+            <View style={[loginSignup.inputContainer, errorMessage && !email.trim() && loginSignup.inputError]}>
+            <TextInput
+              style={loginSignup.input}
+              placeholder="Enter your email"
+              placeholderTextColor="#F739AB"
+              value={email}
+              onChangeText={setEmail}
+            />
             </View>
           
             <Text style={loginSignup.label}>Password</Text>
-            <View style={[loginSignup.inputContainer, loginSignup.lastInput]}>
-              <TextInput style={loginSignup.input} secureTextEntry={!passwordVisible} placeholder="••••••••" placeholderTextColor="#F739AB" />
+            <View style={[loginSignup.inputContainer, errorMessage && !password.trim() && loginSignup.inputError, errorMessage ? loginSignup.lastInputError : loginSignup.lastInput]}>
+            <TextInput
+              style={loginSignup.input}
+              secureTextEntry={!passwordVisible}
+              placeholder="Enter your password"
+              placeholderTextColor="#F739AB"
+              value={password}
+              onChangeText={setPassword}
+            />
               <TouchableOpacity onPress={() => setPasswordVisible(prev => !prev)}>
                 {passwordVisible ? (
                     <EyeOnIcon width={24} height={24} />
@@ -56,8 +87,15 @@ export default function LoginScreen () {
                 )}
                 </TouchableOpacity>
             </View>
-          
-            <TouchableOpacity style={loginSignup.RedLoginSignupButton}>
+
+            {errorMessage ? (
+              <View style={loginSignup.errorContainer}>
+                <RedXIcon width={20} height={20} style={{ marginTop: 2, marginRight: 15 }} />
+                <Text style={loginSignup.errorLogin}>{errorMessage}</Text>
+              </View>
+            ) : null}
+
+            <TouchableOpacity style={loginSignup.RedLoginSignupButton} onPress={handleLogin}>
               <Text style={loginSignup.RedLoginSignupButtonText}>Log In</Text>
             </TouchableOpacity>
           

@@ -55,17 +55,28 @@ const loginSignup = StyleSheet.create({
 		borderRadius: 20,
 		paddingHorizontal: 20,
 		marginBottom: 15,
+        borderWidth: 2,
+        borderColor: "#FFFACB",
 	}, 
 	input: {
 		flex: 1,
-		// height: 40,
 		color: "#F739AB",
 		fontFamily: "Poppins-Medium",
         fontSize: 14,
 	},
+    inputError: {
+        borderColor: "red",
+    },
+    inputErrorSignup: {
+        borderColor: "red",
+        marginBottom: 11,
+    },
 	lastInput: {
-		marginBottom: "16%",
+		marginBottom: 52,
 	},
+    lastInputError:{
+        marginBottom: 11,
+    },
 	eyeIcon: {
 		width: 30,
 		height: 30,
@@ -145,7 +156,7 @@ const loginSignup = StyleSheet.create({
     agreeContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginVertical: 24,
+        marginVertical: 15,
     },
     agreeText: {
         fontFamily: "LeagueSpartan-Regular",
@@ -165,7 +176,7 @@ const loginSignup = StyleSheet.create({
         marginBottom: 25,
     },
     notice: {
-        color: "#F93919",
+        color: "#A6A09F",
         fontFamily: "Poppins-Medium",
         fontSize: 13,
     },
@@ -174,6 +185,13 @@ const loginSignup = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         marginTop: 20,
+        flex: 0.9,
+    },
+    moveToPageError: {
+        width: "100%",
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginTop: 0,
         flex: 0.9,
     },
     moveToPageButton: {
@@ -222,6 +240,9 @@ const loginSignup = StyleSheet.create({
     selectedOption: {
         borderColor: '#F739AB',
         backgroundColor: '#FFF0F6',
+    },
+    errorOption: {
+        borderColor: 'red',
     },
     optionTitle: {
         textAlign: 'center',
@@ -410,7 +431,32 @@ const loginSignup = StyleSheet.create({
     modalDoneButtonText: {
         color: '#fff',
         fontFamily: 'Poppins-SemiBold',
-    },      
+    },
+    errorContainer: {
+        flexDirection: 'row',
+        alignItems: 'flex-start',
+        marginBottom: 16,
+        marginLeft: 15,
+        marginRight: 15,
+    },
+    errorLogin: {
+        color: '#FF4D4F',
+        fontFamily: 'Poppins-Medium',
+        fontSize: 12,
+        flex: 1,
+        textAlign: 'left',
+        marginTop: 2,
+    }, 
+    errorContainerSmall: {
+        flexDirection: 'row',
+        alignItems: 'flex-start',
+        marginBottom: 2,
+        marginLeft: 15,
+        marginRight: 15,
+    },    
+    optionError: {
+        marginBottom: 7,
+    },
 });
 
 export default loginSignup;

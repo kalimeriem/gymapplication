@@ -4,6 +4,7 @@ import * as Font from "expo-font";
 import { router, Stack } from "expo-router";
 import loginSignup from "../../styles/loginSignup";
 import { StatusBar } from "expo-status-bar";
+import RedXIcon from "../../../assets/icons/red-x-icon.svg"
 
 export default function DailyActivity () {
   const [fontsLoaded, setFontsLoaded] = useState(false);
@@ -11,6 +12,8 @@ export default function DailyActivity () {
 	const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const optionTitles = ['Physical work', 'Office work', 'Student'];
 	const optionDesc = ['I move a lot during work', 'I work on desk', 'Studying most of the time'];
+
+	const [error, setError] = useState("");
 
   useEffect(() => {
     async function loadFonts() {
@@ -44,6 +47,7 @@ export default function DailyActivity () {
 									key={index}
 									style={[
 										loginSignup.optionButton,
+										error && loginSignup.errorOption,
 										selectedOption === index && loginSignup.selectedOption,
 									]}
 									onPress={() => setSelectedOption(index)}
@@ -67,6 +71,13 @@ export default function DailyActivity () {
 								</TouchableOpacity>
 							))}
 
+							{error ? (
+								<View style={loginSignup.errorContainer}>
+									<RedXIcon width={20} height={20} style={{ marginTop: 2, marginRight: 15 }} />
+									<Text style={loginSignup.errorLogin}>{error}</Text>
+								</View>
+							) : null}
+
 						</View>
 
 						<View style={[loginSignup.moveToPage, loginSignup.optionPagePadding]}>
@@ -74,9 +85,20 @@ export default function DailyActivity () {
 								<Text style={loginSignup.RedLoginSignupButtonText}>Go Back</Text>
 							</TouchableOpacity>
 
-							<TouchableOpacity onPress={() => router.push("./equipement")} style={[loginSignup.RedLoginSignupButton, loginSignup.moveToPageButton]}>
+							<TouchableOpacity
+								onPress={() => {
+									if (selectedOption === null) {
+										setError("Please select an option");
+									} else {
+										setError("");
+										router.push("./equipement");
+									}
+								}}
+								style={[loginSignup.RedLoginSignupButton, loginSignup.moveToPageButton]}
+							>
 								<Text style={loginSignup.RedLoginSignupButtonText}>Next Step</Text>
 							</TouchableOpacity>
+
 						</View>
 
           </View>
